@@ -22,7 +22,7 @@ int main(){
 
 //Do not modify source code above this line 
 
-void inputMatrix(double matrix[][N]){
+void inputMatrix(double A[][N]){
 	string input;
 	for(int i = 0; i < N; i++){
 		cout << "Row " << i+1 << ": ";
@@ -32,7 +32,7 @@ void inputMatrix(double matrix[][N]){
 		for(int j = 0; j < (int)input.size(); j++){
 			if(input[j] == ' '){
 				if(num != ""){
-					matrix[i][col] = stod(num);
+					A[i][col] = stod(num);
 					col++;
 					num = "";
 				}
@@ -42,29 +42,37 @@ void inputMatrix(double matrix[][N]){
 			}
 		}
 		if(num != ""){
-            matrix[i][col] = stod(num);
+            A[i][col] = stod(num);
         }
 	}
 }
 
-void findLocalMax(const double input[][N], bool output[][N]){
+void findLocalMax(const double A[][N], bool B[][N]){
 	for(int i = 0; i < N; i++){
 		for(int j = 0; j < N; j++){
-			output[i][j] = false;
-		}
-	}
-	for(int i = 1; i < N; i++){
-		for(int j = 1; j < N; j++){
-			if(input[i][j] > input[i-1][j] && input[i][j] > input[i+1][j] && input[i][j] > input[i][j-1] && input[i][j] > input[i][j+1]){
-				output[i][j] = true;
+			if(A[i][j] >= A[i-1][j] && A[i][j] >= A[i+1][j] && A[i][j] >= A[i][j-1] && A[i][j] >= A[i][j+1]){
+				B[i][j] = true;
 			}
 			else{
-				output[i][j] = false;
+				B[i][j] = false;
 			}
 		}
+	}
+	for(int i = 0; i < N; i++){
+		if(i == 0 || i == N-1){
+			for(int j = 0; j < N; j++){
+				B[i][j] = false;
+			}
+			continue;
+		}
+		B[i][0] = false;
+		B[i][N-1] = false;
 	}
 }
 
-void showMatrix(const bool x[][N]){
-
+void showMatrix(const bool A[][N]){
+	for(int i = 0; i < N; i++){
+		for(int j = 0; j < N; j++) cout << A[i][j] << " ";
+		cout << endl;
+	}
 }
